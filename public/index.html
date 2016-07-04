@@ -3,21 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>Lora415</title>
-  </head>
-  <body>
-    hello world
-    <div class="container">
-      <h3 class="text-center">Realtime message board</h3>
-      <div class="jumbotron">
-        <h2 id="lblCurrentMessage" class="text-center"></h2>
-      </div>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
 
-      <div class="form-group">
-        <input type="text" id="txtNewMessage" class="form-control">
-        <button id="btUpdatedMessage" class="btn btn-primary">Update</button>
-      </div>
-    </div>
-  </body>
   <script>
 // Initialize Firebase
   var config = {
@@ -27,22 +17,19 @@ apiKey: "AIzaSyD279kzEnIoSjI-R8W9dGsuTL09skTvFJQ",
         storageBucket: "crackling-heat-8070.appspot.com",
   };
 firebase.initializeApp(config);
-console.log("Hello Firebase");
-
-// Get a reference to the database service
 var database = firebase.database();
-var lblCurrentMessage = new document.getelementById('lblCurrentMessage'),
-    txtNewMessage = document.getElementById('txtNewMessage'),
-    btUpdateMessage = document.getElementById('btUpdateMessage');
-var rootRef = new Firebase('https://crackling-heat-8070.firebaseio.com'),
-    currentMessageRef = rootRef.child('currentMessage');
-btUpdateMessage.addEventListener('click', function(){
-    currentMessageRef.set(txtNewMessage.value);
-    txtNewMessage.value = '';
-    });
 
-currentMessageRef.on('value', function(snapshot){
-    lblCurrentMessage.innerText = snapshot.val();
-    });
+function writeUserData() {
+  database.ref('users/').set({
+  username: "name",
+  email: "email"
+});
+}
   </script>
+  </head>
+  <body onload="writeUserData()">
+    
+
+</body>
+
 </html>
