@@ -18,10 +18,17 @@
 
 
     //example of writing data
-    function simpleWriteExample() {
+    function simpleWriteExample_A() {
       database.ref('some_path/').set({
       some_color: "orange",
       some_number: "1"
+      });
+    }
+
+    function simpleWriteExample_B() {
+      database.ref('some_path/').set({
+      some_color: "Apple",
+      some_number: "2"
       });
     }
 
@@ -30,7 +37,8 @@
 
     //on any value update, run function
     simpleMonitorExample.on('value', function(data) {
-      document.getElementById("example").innerHTML = data.val().some_color;
+      document.getElementById("color").innerHTML = data.val().some_color;
+      document.getElementById("number").innerHTML = data.val().some_number;
     });
 
     </script>
@@ -38,9 +46,13 @@
   <body>
 
     <h1> Below is the current selection </h1>
-    <p id="example"></p>
 
-    <button type=button onclick='simpleWriteExample()'>write orange to database</button>
+    <p> present color is <span id="color"></span></p>
+    <p> present number is <span id="number"></span></p>
 
+    <p>
+      <button type=button onclick='simpleWriteExample_A()'>write 1, orange to database</button>
+      <button type=button onclick='simpleWriteExample_B()'>write 2, apples to database</button>
+    </p>
   </body>
 </html>
