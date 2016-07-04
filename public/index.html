@@ -8,28 +8,39 @@
     <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
 
-  <script>
-// Initialize Firebase
-  var config = {
-apiKey: "AIzaSyD279kzEnIoSjI-R8W9dGsuTL09skTvFJQ",
-        authDomain: "crackling-heat-8070.firebaseapp.com",
-        databaseURL: "https://crackling-heat-8070.firebaseio.com",
-        storageBucket: "crackling-heat-8070.appspot.com",
-  };
-firebase.initializeApp(config);
-var database = firebase.database();
+    <script src="js/firebase-init.js"></script> <!-- allows access to firebase.database() -->
 
-function writeUserData() {
-  database.ref('users/').set({
-  username: "name",
-  email: "email"
-});
-}
-  </script>
+    <script>
+    //moved the init stuff to js/firebase-init.js
+
+    //get a database object
+    var database = firebase.database();
+
+
+    //example of writing data
+    function simpleWriteExample() {
+      database.ref('some_path/').set({
+      some_color: "orange",
+      some_number: "1"
+      });
+    }
+
+    //monitoring data
+    var simpleMonitorExample = database.ref('some_path/');
+
+    //on any value update, run function
+    simpleMonitorExample.on('value', function(data) {
+      document.getElementById("example").innerHTML = data.val().some_color;
+    });
+
+    </script>
   </head>
-  <body onload="writeUserData()">
-    
+  <body>
 
-</body>
+    <h1> Below is the current selection </h1>
+    <p id="example"></p>
 
+    <button type=button onclick='simpleWriteExample()'>write orange to database</button>
+
+  </body>
 </html>
